@@ -3,6 +3,12 @@ package com.vehicle.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.victools.jsonschema.generator.OptionPreset;
+import com.github.victools.jsonschema.generator.SchemaGenerator;
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfig;
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
+import com.github.victools.jsonschema.generator.SchemaVersion;
 import com.github.victools.jsonschema.module.jackson.JacksonModule;
 
 @SpringBootApplication
@@ -16,7 +22,7 @@ public class DemoApplication {
 		    .with(module);
 		SchemaGeneratorConfig config = configBuilder.build();
 		SchemaGenerator generator = new SchemaGenerator(config);
-		JsonNode jsonSchema = generator.generateSchema(YourClass.class);
+		JsonNode jsonSchema = generator.generateSchema(Car.class);
 
 		System.out.println(jsonSchema.toString());
 	}
