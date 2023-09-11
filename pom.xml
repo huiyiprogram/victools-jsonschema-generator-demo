@@ -39,6 +39,19 @@
 		    <artifactId>jsonschema-module-jackson</artifactId>
 		    <version>[4.21.0,5.0.0)</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.github.victools</groupId>
+		    <artifactId>jsonschema-module-jakarta-validation</artifactId>
+		    <version>[4.21.0,5.0.0)</version>
+		</dependency>
+		
+		 <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+		
 	</dependencies>
 
 	<build>

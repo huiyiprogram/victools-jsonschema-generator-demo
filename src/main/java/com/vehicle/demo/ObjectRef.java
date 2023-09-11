@@ -1,6 +1,13 @@
 package com.vehicle.demo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ObjectRef extends BaseObject {
-	String collectionName;
+	
+	@JsonProperty(required = true)
 	String id;
+	
+	@JsonProperty
+	String collectionName;
+	
 }
