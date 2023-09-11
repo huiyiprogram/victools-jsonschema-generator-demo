@@ -12,6 +12,7 @@ import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
 import com.github.victools.jsonschema.generator.SchemaVersion;
 import com.github.victools.jsonschema.module.jackson.JacksonModule;
 import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
+import com.github.victools.jsonschema.module.swagger2.Swagger2Module;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -21,16 +22,27 @@ public class DemoApplication {
 		
 		JacksonModule jacksonModule = new JacksonModule();
 		JakartaValidationModule validationModule = new JakartaValidationModule();
+		Swagger2Module swaggerModule = new Swagger2Module();
 		
+		// Using jackson annotations and jarkarta validations
 		SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12, OptionPreset.PLAIN_JSON)
 		    .with(jacksonModule)
-		    .with(validationModule);
+		    .with(validationModule)
+		    .with(swaggerModule);
 		SchemaGeneratorConfig config = configBuilder.build();
 		SchemaGenerator generator = new SchemaGenerator(config);
-		JsonNode jsonSchema = generator.generateSchema(Car.class);
+		JsonNode carJsonSchema = generator.generateSchema(Car.class);
 		
-
-		System.out.println(jsonSchema.toPrettyString());
+		// Using swagger annotations
+		SchemaGeneratorConfigBuilder configBuilder2 = new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12, OptionPreset.PLAIN_JSON)
+				.with(swaggerModule);
+		SchemaGeneratorConfig config2 = configBuilder2.build();
+		SchemaGenerator generator2 = new SchemaGenerator(config2);
+		JsonNode carRequestJsonSchema = generator2.generateSchema(CarRequest.class);
+		
+		System.out.println(carJsonSchema.toPrettyString());
+		System.out.println("-------------Swagger annotations-----------------");
+		System.out.println(carRequestJsonSchema.toPrettyString());
 	}
 
 }
